@@ -16,20 +16,15 @@ RUN echo "🧪 DEBUG: LISTING FILES IN BUILD CONTEXT" && ls -l /webdav && \
     echo "🧪 DEBUG: PRINTING webdav.yml" && cat /webdav/webdav.yml && \
     echo "🧪 DEBUG: PRINTING htpasswd" && cat /webdav/htpasswd
 RUN go build -o main -trimpath -ldflags="-s -w -X 'github.com/hacdias/webdav/v5/cmd.version=$VERSION'" .
-
-
     
 FROM scratch
 
-COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=build /webdav/main /bin/webdav
-COPY ./htpasswd /config/htpasswd
-COPY ./webdav.yml /config/webdav.yml
 
+# ✅ Corrected: copy these from /webdav, not host
+COPY --from=build /webdav/htpasswd /config/htpasswd
+COPY --from=build /webdav/webdav.yml /config/webdav.yml
 
+EXPOSE 8080
 ENTRYPOINT ["/bin/webdav", "--config", "/config/webdav.yml"]
-
-
-
-
-
