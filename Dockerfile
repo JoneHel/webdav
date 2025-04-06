@@ -22,6 +22,7 @@ COPY htpasswd /config/htpasswd
 
 EXPOSE 8080
 
+RUN ls -l /config
 ENTRYPOINT ["webdav", "--config", "/config/webdav.yml"]
 
 
