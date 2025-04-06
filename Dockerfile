@@ -15,6 +15,8 @@ FROM scratch
 COPY --from=build /webdav/main /bin/webdav
 COPY --from=build /webdav/webdav.yml /config/webdav.yml
 
+RUN mkdir -p /data && chmod 777 /data
+
 EXPOSE 8080
 
 ENTRYPOINT ["/bin/webdav", "--config", "/config/webdav.yml"]
