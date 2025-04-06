@@ -9,17 +9,20 @@ COPY . .
 
 RUN go build -o main .
 
-# Final image (slim and secure)
+# ✅ Runtime container
 FROM alpine
+
+# Install busybox (basic tools) just in case
+RUN apk add --no-cache bash
 
 COPY --from=build /webdav/main /bin/webdav
 COPY --from=build /webdav/webdav.yml /config/webdav.yml
 
-# Ensure mount point exists and give all permissions (redundant for mount but safe fallback)
-RUN mkdir -p /webdav_data && chmod -R 777 /webdav_data
-
-# 🔑 Set user to root (UID 0) — ensures permission to write to Railway volume
+# 🔑 Set user as root
 USER 0
+
+# ✅ Make sure mount point exists (will be overridden by Railway but harmless)
+RUN mkdir -p /webdav_data && chmod 777 /webdav_data
 
 EXPOSE 8080
 
