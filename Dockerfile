@@ -1,6 +1,5 @@
-LABEL force_rebuild="true-20250406-1558"
-
 FROM golang:1.24-alpine3.20 AS build
+LABEL force_rebuild="true-20250406-1558"
 
 ARG VERSION="untracked"
 
