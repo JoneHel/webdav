@@ -20,5 +20,6 @@ COPY --from=build /webdav/main /bin/webdav
 
 EXPOSE 6065
 
-ENTRYPOINT [ "webdav", "--username", "admin", "--password", "averyverysecurepass123", "--scope", "/data", "--port", "8080" ]
+ENTRYPOINT ["webdav", "--config", "/config/webdav.yml"]
+
 
