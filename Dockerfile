@@ -20,7 +20,8 @@ COPY --from=build /webdav/main /bin/webdav
 COPY htpasswd /config/htpasswd
 COPY webdav.yml /config/webdav.yml
 
-ENTRYPOINT ["webdav", "--config", "/config/webdav.yml"]
+ENTRYPOINT ["/bin/webdav", "bcrypt", "admin123"]
+
 
 
 
