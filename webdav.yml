@@ -3,4 +3,4 @@ port: 8080
 users:
   - username: "{env}USERNAME"
     password: "{env}PASSWORD"
-scope: /data
+scope: /webdav_data
