@@ -10,7 +10,7 @@ COPY . .
 RUN go build -o main .
 
 # Final image (slim and secure)
-FROM scratch
+FROM alpine
 
 COPY --from=build /webdav/main /bin/webdav
 COPY --from=build /webdav/webdav.yml /config/webdav.yml
