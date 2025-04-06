@@ -17,10 +17,12 @@ FROM scratch
 
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 COPY --from=build /webdav/main /bin/webdav
-COPY htpasswd /config/htpasswd
-COPY webdav.yml /config/webdav.yml
+COPY ./htpasswd /config/htpasswd
+COPY ./webdav.yml /config/webdav.yml
 
-ENTRYPOINT ["/bin/webdav", "bcrypt", "admin123"]
+
+ENTRYPOINT ["/bin/webdav", "--config", "/config/webdav.yml"]
+
 
 
 
