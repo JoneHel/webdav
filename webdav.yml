@@ -1,7 +1,7 @@
 address: 0.0.0.0
 port: 8080
 auth:
-  htpasswd:
-    file: /config/htpasswd
-    realm: "WebDAV"
+  users:
+    - username: "{env}ENV_USERNAME"
+      password: "{env}ENV_PASSWORD"
 scope: /data
